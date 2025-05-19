@@ -10,5 +10,4 @@
         public int Stock { get; set; }
         public decimal Cost { get; set; }
     }
-
 }

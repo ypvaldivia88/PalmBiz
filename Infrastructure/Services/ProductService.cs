@@ -1,26 +1,41 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
-
+using Infrastructure.Data;
 
 namespace Infrastructure.Services
 {
     public class ProductService : IProductService
     {
-        private readonly List<Product> _products = new();
+        private readonly ProductRepository _repository;
 
-        public IEnumerable<Product> GetAll() => _products;
-
-        public Product GetById(int id) => _products.FirstOrDefault(p => p.Id == id);
-
-        public void Add(Product product) => _products.Add(product);
-
-        public void Update(Product product)
+        public ProductService(ProductRepository repository)
         {
-            var index = _products.FindIndex(p => p.Id == product.Id);
-            if (index != -1) _products[index] = product;
+            _repository = repository;
         }
 
-        public void Delete(int id) => _products.RemoveAll(p => p.Id == id);
-    }
+        public async Task<IEnumerable<Product>> GetAllAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
 
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+
+        public async Task AddAsync(Product product)
+        {
+            await _repository.AddAsync(product);
+        }
+
+        public async Task UpdateAsync(Product product)
+        {
+            await _repository.UpdateAsync(product);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
+    }
 }
