@@ -34,6 +34,8 @@ namespace Mobile
             builder.Services.AddSingleton<ISaleService, SaleService>();
             builder.Services.AddSingleton<ExchangeRateRepository>();
             builder.Services.AddSingleton<IExchangeRateService, ExchangeRateService>();
+            builder.Services.AddSingleton<UserRepository>();
+            builder.Services.AddSingleton<IUserService, UserService>();
 
 #if DEBUG
             builder.Logging.AddDebug();
