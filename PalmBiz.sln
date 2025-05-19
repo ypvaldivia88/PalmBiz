@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile", "Mobile\Mobile.csproj", "{C4C6B9C6-6217-4298-ADA3-702F1AB71C13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{55AA475A-DA77-458A-924D-7566537B5C15} = {55AA475A-DA77-458A-924D-7566537B5C15}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{55AA475A-DA77-458A-924D-7566537B5C15}"
 EndProject
