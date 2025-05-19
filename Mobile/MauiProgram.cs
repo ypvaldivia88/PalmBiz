@@ -19,20 +19,21 @@ namespace Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Register SQLiteAsyncConnection as a singleton using DatabaseService
+            // Inicializa la base de datos SINCRÓNICAMENTE antes de registrar el servicio
+            DatabaseService.InitializeAsync().GetAwaiter().GetResult();
+
+            // Ahora es seguro registrar la conexión
             builder.Services.AddSingleton<SQLiteAsyncConnection>(provider =>
             {
-                // Ensure DatabaseService.InitializeAsync() is called before this!
                 return DatabaseService.GetConnection();
             });
 
-            // Register ProductRepository and ProductService
             builder.Services.AddSingleton<ProductRepository>();
             builder.Services.AddSingleton<IProductService, ProductService>();
-
-            // Register SaleRepository and SaleService
             builder.Services.AddSingleton<SaleRepository>();
             builder.Services.AddSingleton<ISaleService, SaleService>();
+            builder.Services.AddSingleton<ExchangeRateRepository>();
+            builder.Services.AddSingleton<IExchangeRateService, ExchangeRateService>();
 
 #if DEBUG
             builder.Logging.AddDebug();
