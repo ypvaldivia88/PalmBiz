@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build-android",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/Mobile/Mobile.csproj",
+				"-f",
+				"net8.0-android"
+			],
+			"group": "build"
+		}
+	]
+}

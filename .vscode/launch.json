@@ -1,0 +1,50 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET MAUI",
+            "type": "maui",
+            "request": "launch",
+            "preLaunchTask": "maui: Build"
+        },
+        {
+            "type": "coreclr",
+            "request": "launch",
+            "name": "Debug Android",
+            "preLaunchTask": "build-android",
+            "program": "${workspaceFolder}/Mobile/bin/Debug/net8.0-android/Mobile.dll"
+        },
+        {
+            "type": "coreclr",
+            "request": "launch",
+            "name": "Launch API",
+            "program": "${workspaceFolder}/API/bin/Debug/net8.0/API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/API",
+            "preLaunchTask": "build-api"
+        },
+        {
+            "type": "coreclr",
+            "request": "launch",
+            "name": "Launch MAUI Windows",
+            "program": "${workspaceFolder}/Mobile/bin/Debug/net8.0-windows10.0.19041.0/win10-x64/Mobile.exe",
+            "preLaunchTask": "build-maui-windows"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "targetPlatform",
+            "type": "pickString",
+            "description": "Select the MAUI target platform",
+            "options": [
+                "windows",
+                "android",
+                "ios",
+                "maccatalyst"
+            ]
+        }
+    ]
+}
