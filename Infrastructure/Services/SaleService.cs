@@ -1,25 +1,43 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Infrastructure.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
     public class SaleService : ISaleService
     {
-        private readonly List<Sale> _sales = new();
+        private readonly SaleRepository _repository;
 
-        public IEnumerable<Sale> GetAll() => _sales;
-
-        public Sale GetById(int id) => _sales.FirstOrDefault(s => s.Id == id);
-
-        public void Add(Sale sale) => _sales.Add(sale);
-
-        public void Update(Sale sale)
+        public SaleService(SaleRepository repository)
         {
-            var index = _sales.FindIndex(s => s.Id == sale.Id);
-            if (index != -1) _sales[index] = sale;
+            _repository = repository;
         }
 
-        public void Delete(int id) => _sales.RemoveAll(s => s.Id == id);
-    }
+        public async Task<IEnumerable<Sale>> GetAllAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
 
+        public async Task<Sale> GetByIdAsync(int id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+
+        public async Task AddAsync(Sale sale)
+        {
+            await _repository.AddAsync(sale);
+        }
+
+        public async Task UpdateAsync(Sale sale)
+        {
+            await _repository.UpdateAsync(sale);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
+    }
 }

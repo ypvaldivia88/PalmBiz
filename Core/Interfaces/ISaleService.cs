@@ -4,11 +4,10 @@ namespace Core.Interfaces
 {
     public interface ISaleService
     {
-        IEnumerable<Sale> GetAll();
-        Sale GetById(int id);
-        void Add(Sale sale);
-        void Update(Sale sale);
-        void Delete(int id);
+        Task<IEnumerable<Sale>> GetAllAsync();
+        Task<Sale> GetByIdAsync(int id);
+        Task AddAsync(Sale sale);
+        Task UpdateAsync(Sale sale);
+        Task DeleteAsync(int id);
     }
-
 }
