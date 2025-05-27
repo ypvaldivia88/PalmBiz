@@ -20,7 +20,19 @@ namespace Mobile
                 });
 
             // Inicializa la base de datos SINCRÓNICAMENTE antes de registrar el servicio
-            DatabaseService.InitializeAsync().GetAwaiter().GetResult();
+            try
+            {
+                DatabaseService.InitializeAsync().GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                // Logging del error
+                System.Diagnostics.Debug.WriteLine($"Error initializing database: {ex}");
+
+                // Aquí podrías agregar lógica para notificar al usuario o detener la app si es necesario
+                // Por ejemplo, podrías lanzar la excepción para evitar que la app continúe:
+                throw;
+            }
 
             // Ahora es seguro registrar la conexión
             builder.Services.AddSingleton<SQLiteAsyncConnection>(provider =>
