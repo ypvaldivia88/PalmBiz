@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mobile.ViewModels"
+             x:Class="Mobile.Views.ProductListView"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*">
+        <RefreshView Grid.Row="1" 
+                    Command="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Products}"
+                          SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" ColumnDefinitions="Auto,*,Auto">
+                            <Frame Grid.Column="0" 
+                                   HeightRequest="50" 
+                                   WidthRequest="50"
+                                   CornerRadius="25"
+                                   IsClippedToBounds="True"
+                                   Padding="0">
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="50"
+                                       WidthRequest="50"/>
+                            </Frame>
+                            
+                            <VerticalStackLayout Grid.Column="1" 
+                                               Padding="10,0"
+                                               VerticalOptions="Center">
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Category}"
+                                       TextColor="{StaticResource Gray500}"/>
+                            </VerticalStackLayout>
+                            
+                            <VerticalStackLayout Grid.Column="2"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="Center">
+                                <Label Text="{Binding BasePrice, StringFormat='${0:N2}'}"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="End"/>
+                                <Label Text="{Binding Stock, StringFormat='Stock: {0}'}"
+                                       TextColor="{StaticResource Gray500}"
+                                       HorizontalOptions="End"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <ActivityIndicator Grid.Row="1"
+                          IsRunning="{Binding IsBusy}"
+                          IsVisible="{Binding IsBusy}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+    </Grid>
+
+</ContentPage>

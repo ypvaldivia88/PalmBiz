@@ -19,35 +19,21 @@ namespace Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Inicializa la base de datos SINCRÓNICAMENTE antes de registrar el servicio
-            try
-            {
-                DatabaseService.InitializeAsync().GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                // Logging del error
-                System.Diagnostics.Debug.WriteLine($"Error initializing database: {ex}");
-
-                // Aquí podrías agregar lógica para notificar al usuario o detener la app si es necesario
-                // Por ejemplo, podrías lanzar la excepción para evitar que la app continúe:
-                throw;
-            }
-
-            // Ahora es seguro registrar la conexión
-            builder.Services.AddSingleton<SQLiteAsyncConnection>(provider =>
-            {
-                return DatabaseService.GetConnection();
-            });
+            DatabaseService.InitializeAsync().GetAwaiter().GetResult();
+            builder.Services.AddSingleton<SQLiteAsyncConnection>(provider => DatabaseService.GetConnection());
 
             builder.Services.AddSingleton<ProductRepository>();
             builder.Services.AddSingleton<IProductService, ProductService>();
             builder.Services.AddSingleton<SaleRepository>();
-            builder.Services.AddSingleton<ISaleService, SaleService>();
+            builder.Services.AddSingleton<ISaleService, SaleService>();            
             builder.Services.AddSingleton<ExchangeRateRepository>();
             builder.Services.AddSingleton<IExchangeRateService, ExchangeRateService>();
             builder.Services.AddSingleton<UserRepository>();
             builder.Services.AddSingleton<IUserService, UserService>();
+            
+            // Register Views and ViewModels
+            builder.Services.AddSingleton<Views.ProductListView>();
+            builder.Services.AddSingleton<ViewModels.ProductViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

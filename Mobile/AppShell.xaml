@@ -4,12 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Mobile"
+    xmlns:views="clr-namespace:Mobile.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="Mobile">
+    Title="PalmBiz">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Productos"
+        ContentTemplate="{DataTemplate views:ProductListView}"
+        Route="ProductList" />
 
 </Shell>
