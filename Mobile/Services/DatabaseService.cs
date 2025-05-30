@@ -1,9 +1,11 @@
 ﻿using SQLite;
 using Core.Entities;
+using Core.Interfaces;
 
 public class DatabaseService
 {
-    private static SQLiteAsyncConnection _database;
+    private static SQLiteAsyncConnection? _database;
+    private static ISyncService? _syncService;
 
     public static async Task InitializeAsync()
     {
@@ -22,17 +24,19 @@ public class DatabaseService
             }
 
             _database = new SQLiteAsyncConnection(dbPath);
-            //await _database.CreateTableAsync<Product>();
-            //await _database.CreateTableAsync<Sale>();
-            //await _database.CreateTableAsync<SaleDetail>();
-            //await _database.CreateTableAsync<User>();
-            //await _database.CreateTableAsync<ExchangeRate>();
+            
+            // Create tables
+            await _database.CreateTableAsync<Product>();
+            await _database.CreateTableAsync<Sale>();
+            await _database.CreateTableAsync<SaleDetail>();
+            await _database.CreateTableAsync<User>();
+            await _database.CreateTableAsync<ExchangeRate>();
+            await _database.CreateTableAsync<SyncStatus>();
         }
         catch (Exception ex)
         {
-            // Log the exception or handle it as needed
             System.Diagnostics.Debug.WriteLine($"Database initialization error: {ex}");
-            throw; // Optionally rethrow to notify callers
+            throw;
         }
     }
 
@@ -42,5 +46,26 @@ public class DatabaseService
             throw new InvalidOperationException("Database not initialized. Call InitializeAsync() first.");
 
         return _database;
+    }
+    
+    public static void SetSyncService(ISyncService syncService)
+    {
+        _syncService = syncService;
+    }
+    
+    public static async Task<bool> SyncAsync()
+    {
+        if (_syncService == null)
+            throw new InvalidOperationException("Sync service not initialized.");
+            
+        return await _syncService.SyncAllAsync();
+    }
+    
+    public static async Task<bool> SyncEntityAsync<T>(T entity) where T : BaseEntity
+    {
+        if (_syncService == null)
+            throw new InvalidOperationException("Sync service not initialized.");
+            
+        return await _syncService.SyncEntityAsync(entity);
     }
 }
