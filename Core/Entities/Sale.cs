@@ -2,10 +2,10 @@
 
 namespace Core.Entities
 {
-    public class Sale
+    public class Sale : BaseEntity
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public new int Id { get; set; }
         public DateTime Date { get; set; }
         public List<SaleDetail>? Details { get; set; }
         public decimal Total { get; set; }

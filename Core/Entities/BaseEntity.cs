@@ -1,14 +1,15 @@
+using System;
+
 namespace Core.Entities
 {
     public abstract class BaseEntity
     {
-        [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
         
-        // Sync fields
-        public bool IsDeleted { get; set; }
-        public DateTime LastModified { get; set; }
-        public bool IsSynced { get; set; }
+        // MongoDB sync fields
         public string SyncId { get; set; } = Guid.NewGuid().ToString();
+        public DateTime LastModified { get; set; } = DateTime.UtcNow;
+        public bool IsSynced { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

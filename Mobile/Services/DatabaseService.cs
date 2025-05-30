@@ -22,11 +22,11 @@ public class DatabaseService
             }
 
             _database = new SQLiteAsyncConnection(dbPath);
-            await _database.CreateTableAsync<Product>();
-            await _database.CreateTableAsync<Sale>();
-            await _database.CreateTableAsync<SaleDetail>();
-            await _database.CreateTableAsync<User>();
-            await _database.CreateTableAsync<ExchangeRate>();
+            //await _database.CreateTableAsync<Product>();
+            //await _database.CreateTableAsync<Sale>();
+            //await _database.CreateTableAsync<SaleDetail>();
+            //await _database.CreateTableAsync<User>();
+            //await _database.CreateTableAsync<ExchangeRate>();
         }
         catch (Exception ex)
         {

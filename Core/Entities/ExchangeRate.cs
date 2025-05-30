@@ -2,10 +2,10 @@
 
 namespace Core.Entities
 {
-    public class ExchangeRate
+    public class ExchangeRate : BaseEntity
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public new int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal Rate { get; set; }
     }
