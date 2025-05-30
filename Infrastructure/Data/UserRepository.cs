@@ -24,13 +24,26 @@ namespace Infrastructure.Data
             return await _db.Table<User>().FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<User> GetByUsernameAsync(string username)
+        {
+            return await _db.Table<User>().FirstOrDefaultAsync(u => u.Username == username);
+        }
+
         public async Task AddAsync(User user)
         {
+            // Set sync fields
+            user.LastModified = DateTime.UtcNow;
+            user.IsSynced = false;
+            
             await _db.InsertAsync(user);
         }
 
         public async Task UpdateAsync(User user)
         {
+            // Set sync fields
+            user.LastModified = DateTime.UtcNow;
+            user.IsSynced = false;
+            
             await _db.UpdateAsync(user);
         }
 
@@ -39,7 +52,13 @@ namespace Infrastructure.Data
             var user = await GetByIdAsync(id);
             if (user != null)
             {
-                await _db.DeleteAsync(user);
+                // Soft delete
+                user.IsDeleted = true;
+                user.IsActive = false;
+                user.LastModified = DateTime.UtcNow;
+                user.IsSynced = false;
+                
+                await _db.UpdateAsync(user);
             }
         }
     }

@@ -25,6 +25,11 @@ namespace Infrastructure.Services
             return await _repository.GetByIdAsync(id);
         }
 
+        public async Task<User> GetByUsernameAsync(string username)
+        {
+            return await _repository.GetByUsernameAsync(username);
+        }
+
         public async Task AddAsync(User user)
         {
             await _repository.AddAsync(user);

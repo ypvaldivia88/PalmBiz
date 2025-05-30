@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using SQLite;
 using Infrastructure.Data;
 using Infrastructure.Services;
+using Mobile.ViewModels;
+using Mobile.Views;
 
 namespace Mobile
 {
@@ -36,9 +38,19 @@ namespace Mobile
             builder.Services.AddSingleton<UserRepository>();
             builder.Services.AddSingleton<IUserService, UserService>();
             
+            // Register auth service
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+            
             // Register Views and ViewModels
             builder.Services.AddSingleton<Views.ProductListView>();
             builder.Services.AddSingleton<ViewModels.ProductViewModel>();
+            
+            // Register auth related views and viewmodels
+            builder.Services.AddTransient<LoginView>();
+            builder.Services.AddTransient<LoginViewModel>();
+            
+            // Register app shell for dependency injection
+            builder.Services.AddSingleton<AppShell>();
             
             // Initialize sync service
             var app = builder.Build();

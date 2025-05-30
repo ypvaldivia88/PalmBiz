@@ -5,12 +5,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Mobile"
     xmlns:views="clr-namespace:Mobile.Views"
-    Shell.FlyoutBehavior="Disabled"
     Title="PalmBiz">
 
-    <ShellContent
-        Title="Productos"
-        ContentTemplate="{DataTemplate views:ProductListView}"
-        Route="ProductList" />
+    <!-- Login Route -->
+    <ShellContent 
+        Route="login"
+        ContentTemplate="{DataTemplate views:LoginView}"
+        FlyoutItemIsVisible="False" />
+
+    <!-- Main Application -->
+    <FlyoutItem Route="main">
+        <Tab Title="Productos">
+            <ShellContent
+                Title="Lista"
+                ContentTemplate="{DataTemplate views:ProductListView}"
+                Route="ProductList" />
+        </Tab>
+        
+        <!-- Admin only tab -->
+        <Tab Title="Administración" x:Name="AdminTab">
+            <ShellContent
+                Title="Usuarios"
+                ContentTemplate="{DataTemplate views:ProductListView}"
+                Route="Users" />
+        </Tab>
+    </FlyoutItem>
 
 </Shell>

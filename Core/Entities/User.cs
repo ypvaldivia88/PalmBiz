@@ -8,7 +8,11 @@ namespace Core.Entities
         [PrimaryKey, AutoIncrement]
         public new int Id { get; set; }
         public string? Name { get; set; }
-        public string? Role { get; set; } // e.g., "Seller", "Admin"
+        public string? Username { get; set; }
+        public string? PasswordHash { get; set; }
+        public string? Role { get; set; } // "Seller" or "Admin"
+        public string? Email { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime? LastLogin { get; set; }
     }
-
 }
