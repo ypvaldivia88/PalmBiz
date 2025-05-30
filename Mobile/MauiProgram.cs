@@ -19,9 +19,14 @@ namespace Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // Initialize database
             DatabaseService.InitializeAsync().GetAwaiter().GetResult();
             builder.Services.AddSingleton<SQLiteAsyncConnection>(provider => DatabaseService.GetConnection());
+            
+            // Register sync service
+            builder.Services.AddSingleton<ISyncService, MongoDbSyncService>();
 
+            // Register repositories
             builder.Services.AddSingleton<ProductRepository>();
             builder.Services.AddSingleton<IProductService, ProductService>();
             builder.Services.AddSingleton<SaleRepository>();
@@ -34,12 +39,18 @@ namespace Mobile
             // Register Views and ViewModels
             builder.Services.AddSingleton<Views.ProductListView>();
             builder.Services.AddSingleton<ViewModels.ProductViewModel>();
+            
+            // Initialize sync service
+            var app = builder.Build();
+            var syncService = app.Services.GetRequiredService<ISyncService>();
+            DatabaseService.SetSyncService(syncService);
+            syncService.InitializeAsync().GetAwaiter().GetResult();
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            return app;
         }
     }
 }
