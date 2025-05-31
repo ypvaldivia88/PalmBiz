@@ -21,7 +21,7 @@
                    FontSize="28"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
-            <Label Text="{Binding IsRegistering, Converter={StaticResource BoolToStringConverter}, ConverterParameter='Crear Cuenta|Iniciar Sesión'}"
+            <Label Text="{Binding IsRegistering, Converter={StaticResource BoolToStringConverter}, ConverterParameter='Crear Cuenta|Iniciar Sesiï¿½n'}"
                    FontSize="20"
                    HorizontalOptions="Center"/>
         </StackLayout>
@@ -47,17 +47,17 @@
             <Label Text="Usuario" />
             <Entry Text="{Binding Username}" Placeholder="Nombre de usuario" />
             
-            <Label Text="Contraseña" />
-            <Entry Text="{Binding Password}" IsPassword="True" Placeholder="Contraseña" />
+            <Label Text="Contraseï¿½a" />
+            <Entry Text="{Binding Password}" IsPassword="True" Placeholder="Contraseï¿½a" />
             
             <!-- Confirm password for registration -->
             <StackLayout IsVisible="{Binding IsRegistering}">
-                <Label Text="Confirmar Contraseña" />
-                <Entry Text="{Binding ConfirmPassword}" IsPassword="True" Placeholder="Confirmar contraseña" />
+                <Label Text="Confirmar Contraseï¿½a" />
+                <Entry Text="{Binding ConfirmPassword}" IsPassword="True" Placeholder="Confirmar contraseï¿½a" />
             </StackLayout>
 
             <!-- Action buttons -->
-            <Button Text="Iniciar Sesión"
+            <Button Text="Iniciar Sesiï¿½n"
                     Command="{Binding LoginCommand}"
                     IsVisible="{Binding IsRegistering, Converter={StaticResource InvertBoolConverter}}"
                     BackgroundColor="{StaticResource Primary}"
@@ -80,7 +80,7 @@
 
         <!-- Footer -->
         <StackLayout Grid.Row="2" Margin="0,0,0,20">
-            <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToStringConverter}, ConverterParameter='¿Ya tienes cuenta? Iniciar sesión|¿No tienes cuenta? Regístrate'}"
+            <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToStringConverter}, ConverterParameter='ï¿½Ya tienes cuenta? Iniciar sesiï¿½n|ï¿½No tienes cuenta? Regï¿½strate'}"
                     Command="{Binding ToggleModeCommand}"
                     BackgroundColor="Transparent"
                     TextColor="{StaticResource Primary}" />
